@@ -22,4 +22,7 @@ public class CbServerProperties {
   @Value("${default.content.properties}")
   private String defaultContentProperties;
 
+  @Value("${redis.ttl.jwt.token}")
+  private long redisTtlForJwtToken;
+
 }
