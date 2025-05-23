@@ -298,6 +298,9 @@ public class CommentServiceImpl implements CommentService {
     comment.setStatus(Status.INACTIVE.name().toLowerCase());
     comment = commentRepository.save(comment);
     try {
+      // Delete the comment from Redis
+      redisTemplate.opsForValue().getOperations().delete(COMMENT_KEY + commentId);
+
       // Update the comment tree for the deleted comment
       commentTreeService.updateCommentTreeForDeletedComment(commentId, commentTreeIdentifierDTO, parentId);
     } catch (Exception e) {
